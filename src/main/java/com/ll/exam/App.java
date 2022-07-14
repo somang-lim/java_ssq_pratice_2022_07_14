@@ -7,12 +7,13 @@ import java.util.Scanner;
 public class App {
 
     private Scanner sc;
-    private int wiseSayingLastIndexId;
-    private List<WiseSaying> wiseSayings = new ArrayList<>();
+    private int wiseSayingsLastIndexId;
+    private List<WiseSaying> wiseSayings;
 
     public App() {
         this.sc = new Scanner(System.in);
-        wiseSayingLastIndexId = 0;
+        wiseSayingsLastIndexId = 0;
+        wiseSayings = new ArrayList<>();
     }
 
     public void run() {
@@ -22,15 +23,19 @@ public class App {
         while(true) {
             System.out.print("명령) ");
             String cmd = sc.nextLine().trim();
+            Rq rq = new Rq(cmd);
 
-            switch(cmd) {
+            switch(rq.getPath()) {
                 case "등록" :
+                    int id = ++wiseSayingsLastIndexId;
+
                     System.out.print("명언 : ");
                     String content = sc.nextLine();
                     System.out.print("작가 : ");
                     String author = sc.nextLine();
-                    int id = ++wiseSayingLastIndexId;
+
                     wiseSayings.add(new WiseSaying(id, content, author));
+
                     System.out.printf("%d번 명언이 등록되었습니다.\n", id);
                     break;
                 case "목록" :
@@ -43,6 +48,20 @@ public class App {
                         System.out.printf("%d / %s / %s\n", wiseSaying.id, wiseSaying.author, wiseSaying.content);
                     }
                     break;
+                case "삭제" :
+                    id = rq.getIntParam("id", 0);
+
+                    if(id == 0) {
+                        System.out.println("번호를 입력해주세요.");
+                        continue;
+                    }
+
+                    WiseSaying wiseSaying = findById(id);
+
+                    wiseSayings.remove(wiseSaying);
+
+                    System.out.printf("%d번 명언이 삭제되었습니다.\n", id);
+                    break;
                 case "종료" :
                     break outer;
             }
@@ -50,4 +69,12 @@ public class App {
 
     }
 
+    private WiseSaying findById(int id) {
+        for(WiseSaying wiseSaying : wiseSayings) {
+            if(wiseSaying.id == id) {
+                return wiseSaying;
+            }
+        }
+        return null;
+    }
 }
