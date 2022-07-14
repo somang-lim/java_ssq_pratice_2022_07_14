@@ -5,9 +5,11 @@ import java.util.Scanner;
 public class App {
 
     private Scanner sc;
+    private int wiseSayingLastIndexId;
 
     public App() {
         this.sc = new Scanner(System.in);
+        wiseSayingLastIndexId = 0;
     }
 
     public void run() {
@@ -24,7 +26,8 @@ public class App {
                     String content = sc.nextLine();
                     System.out.print("작가 : ");
                     String author = sc.nextLine();
-                    System.out.println("1번 명언이 등록되었습니다.");
+                    wiseSayingLastIndexId++;
+                    System.out.printf("%d번 명언이 등록되었습니다.\n", wiseSayingLastIndexId);
                     break;
                 case "종료" :
                     break outer;
