@@ -4,8 +4,11 @@ import java.util.Scanner;
 
 public class Main {
 
+
     public static void main(String[] args) {
-        new App().run();
+        Scanner sc = new Scanner(System.in);
+
+        new App(sc).run();
     }
 
 }

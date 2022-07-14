@@ -1,18 +1,16 @@
 package com.ll.exam;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Scanner;
 
 public class App {
 
-    private Scanner sc;
+    Scanner sc;
     private WiseSayingController wiseSayingController;
     private Rq rq;
 
-    public App() {
-        this.sc = new Scanner(System.in);
-        wiseSayingController = new WiseSayingController(sc);
+    public App(Scanner sc) {
+        this.sc = sc;
+        wiseSayingController = new WiseSayingController(this.sc);
     }
 
     public void run() {
